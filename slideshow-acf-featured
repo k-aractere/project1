@@ -1,0 +1,70 @@
+<?php
+
+//slideshow a partir de custom post type, avec l'option featured 
+
+function slideshow_hero_home($type_post){
+echo '<section>
+
+            
+    <div class="slideshow-large slideshow-xl">';
+
+  
+
+
+
+  //IF IS PORTRAIT FEATURED
+    //GET CUSTOM POST TYPE FEATURE IMAGE _ CUSTOM POST TYPE MULTIPLE IMAGE _ $NOM _ $SUITE DU TITRE _ $THE_PERMALINK
+    $args = array(
+    'post_type' => $type_post,
+
+      );
+  
+  
+  $wp_query = new WP_Query( $args );
+  if( $wp_query->have_posts() ): while( $wp_query->have_posts() ): $wp_query->the_post(); 
+
+
+    $featured = get_field('featured');
+    $nom = get_field('nom');   
+    $sous_titre = get_field('suite_du_titre');  
+
+    if($featured){
+
+      
+    $thumb_id = get_post_thumbnail_id($p->ID);
+    $thumb_url = wp_get_attachment_image_src($thumb_id,'full', true);
+    echo $thumb_url[0];
+
+
+?>
+   
+      <div class="grande-slide image-change" >
+
+        <a href="<?php echo get_permalink( $p->ID ); ?>" class="slide-change display-out" style="background-image:url(<?php echo MultiPostThumbnails::get_post_thumbnail_url( get_post_type(),'secondary-image', $p->ID); ?>);" >
+         <div class="slideshow-caption slideshow-caption-sm caption-portrait">
+             <h3><?php echo the_field('nom', $p->ID ); ?></span></h3>
+             <h4><?php echo the_field('suite_du_titre', $p->ID ); ?></h4>
+         </div>
+
+        </a>
+
+        <a href="<?php echo get_permalink( $p->ID ); ?>" class="slide-change display-over" style="background-image:url(<?php echo $thumb_url[0]; ?>);" ></a>
+       
+
+      </div><?php
+
+    }
+
+
+  endwhile; endif;
+  wp_reset_query();
+  
+
+
+?>
+</div>
+</section>
+  <?php
+ }
+ 
+ 
