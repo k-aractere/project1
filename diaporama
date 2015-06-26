@@ -1,0 +1,16 @@
+<div class="section-primary">
+                        <div class="slideshow-w ">
+                              <?php foreach( $diaporama as $image ): 
+
+                      echo '<div class=container-slide >  
+                                <div  class=" section__image--diaporama" style="background-image:url('.$image['url'].');">';
+                                    if($image['caption']){
+                                    echo   
+                                   '<p class="caption-diaporama">'. $image['caption'].'</p>';
+                                    }
+                          echo '</div>
+                            </div>';
+                              
+                               endforeach; ?>
+                        </div>
+                    </div>
